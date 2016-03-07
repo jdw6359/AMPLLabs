@@ -10,7 +10,7 @@ var c {t in HOURS} >= 0;
 
 #### Objective Function
 # Minimize the cost for clerks
-minimize cost: 27*c[0] + 36 * sum{t in 1..3} c[t] + 27 * sum{t in 4..23} c[t];
+minimize cost: 3*9*c[0] + 3*12*sum{t in 1..3} c[t] + 3*9*sum{t in 4..23} c[t];
 
 #### Constraints
 ## Following constraints ensure demand at hour t is met
@@ -22,4 +22,4 @@ subject to clerks_0: c[0] >= DEMAND[0];
 subject to clerks_1: c[1] + c[0] >= DEMAND[1];
 
 # Generic constraint for hour t
-subject to clerks_t: c[t] + c[t-1] + c[t-2] >= DEMAND[t];
+subject to clerks_t {t in 2..23}: c[t] + c[t-1] + c[t-2] >= DEMAND[t];
